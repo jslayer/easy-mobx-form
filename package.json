@@ -1,0 +1,43 @@
+{
+  "name": "easy-mobx-form",
+  "version": "1.0.0",
+  "description": "Easy form building library based on mobx-react",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "repository": "git+https://github.com/jslayer/easy-mobx-form.git",
+  "keywords": ["mobx", "react", "mobx-react", "form", "forms", "easy"],
+  "author": "jslayer@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jslayer/easy-mobx-form/issues"
+  },
+  "homepage": "https://github.com/jslayer/easy-mobx-form#readme",
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "mobx": "^5.14.2",
+    "mobx-react": "^6.1.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.21",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "tslint": "^6.0.0-beta0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.4"
+  }
+}
