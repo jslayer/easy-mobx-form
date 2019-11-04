@@ -1,7 +1,7 @@
 export class SubmitError {
-  message = null as string;
+    message = null as string;
 
-  constructor(message) {
-    this.message = message;
-  }
+    constructor(message: string) {
+        this.message = message;
+    }
 }
