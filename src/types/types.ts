@@ -9,15 +9,23 @@ export type FieldProps<V = object> = {
     error: null | string;
     values: any;
     disabled: boolean;
+    name: string;
 };
 
-export type FieldComponent = React.FC<
+export type FieldRenderer = React.FC<
     FieldProps & {
         onChange: (value: any) => void;
         forceError?: boolean;
         initializing: boolean;
     }
 >;
+
+export type BaseFieldComponent = React.FC<{
+    name: string;
+    component: FieldRenderer;
+    validate?: FieldValidator;
+    errorIfPristine?: boolean;
+}>
 
 export type SubmitCallback<V = object> = (values: V, initialValues?: V) => Promise<string | object>;
 

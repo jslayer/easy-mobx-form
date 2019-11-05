@@ -1,14 +1,9 @@
 import React, { useContext } from "react";
-import { FieldComponent, FieldValidator } from "../";
+import { BaseFieldComponent } from "../";
 import { observer } from "mobx-react";
 import { FormContext } from "..";
 
-export const Field: React.FC<{
-    name: string;
-    component: FieldComponent;
-    validate?: FieldValidator;
-    errorIfPristine?: boolean;
-}> = observer((props) => {
+export const Field: BaseFieldComponent = observer((props) => {
     const context = useContext(FormContext);
     const Component = props.component;
     const field = context.getField(props.name);

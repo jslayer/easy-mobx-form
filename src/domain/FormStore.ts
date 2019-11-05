@@ -8,7 +8,7 @@ import {
     PossibleErrors,
     SubmitCallback,
     ValidateCallback,
-} from "../types/types";
+} from "..";
 import { SubmitError } from "./SubmitError";
 
 export class FormStore<V> {
@@ -222,6 +222,7 @@ export class FormStore<V> {
             valid,
             error,
             disabled,
+            name,
             values: this.values,
         };
     }

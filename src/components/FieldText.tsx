@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldComponent, FieldValidator } from "../types/types";
+import { FieldComponent, FieldValidator } from "..";
 import { Field } from "./Field";
 
 const FieldTextRenderer: FieldComponent = (props) => {
@@ -11,6 +11,7 @@ const FieldTextRenderer: FieldComponent = (props) => {
         pristine,
         forceError,
         initializing,
+        name,
     } = props;
 
     const handleChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
@@ -21,6 +22,7 @@ const FieldTextRenderer: FieldComponent = (props) => {
         <div>
             <input
                 type="text"
+                name={name}
                 onChange={handleChange}
                 value={value || ""}
                 disabled={disabled || initializing}

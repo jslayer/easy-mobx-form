@@ -1,9 +1,15 @@
-import { FieldComponent, FieldValidator } from "../types/types";
+import { FieldComponent, FieldValidator } from "..";
 import { Field } from "./Field";
 import React from "react";
 
 const FieldCheckRenderer: FieldComponent = (props) => {
-    const { value, onChange, disabled, initializing } = props;
+    const {
+        value,
+        onChange,
+        disabled,
+        initializing,
+        name,
+    } = props;
 
     const handleChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
         onChange(e.currentTarget.checked);
@@ -12,6 +18,7 @@ const FieldCheckRenderer: FieldComponent = (props) => {
     return (
         <input
             type="checkbox"
+            name={name}
             onChange={handleChange}
             disabled={disabled || initializing}
             checked={value || false}
