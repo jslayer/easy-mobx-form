@@ -25,7 +25,7 @@ export type BaseFieldComponent = React.FC<{
     component: FieldRenderer;
     validate?: FieldValidator;
     errorIfPristine?: boolean;
-}>
+}>;
 
 export type SubmitCallback<V = object> = (values: V, initialValues?: V) => Promise<string | object>;
 
