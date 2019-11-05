@@ -8,7 +8,7 @@ import {
     PossibleErrors,
     SubmitCallback,
     ValidateCallback,
-} from "../types";
+} from "../types/types";
 import { SubmitError } from "./SubmitError";
 
 export class FormStore<V> {

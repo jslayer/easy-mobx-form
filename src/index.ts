@@ -13,3 +13,6 @@ export { Errors } from "./components/Errors";
 export { Field } from "./components/Field";
 export { FieldText } from "./components/FieldText";
 export { FieldCheck } from "./components/FieldCheck";
+export { Value } from "./components/Value";
+
+export * from "./types/types";

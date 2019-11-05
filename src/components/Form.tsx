@@ -1,7 +1,7 @@
 import React from "react";
 import isEqual from "lodash/isEqual";
 import { FormContext, FormStore } from "..";
-import { SubmitCallback, ValidateCallback } from "../types";
+import { SubmitCallback, ValidateCallback } from "../types/types";
 
 export const Form: React.FC<{
     use: FormStore<any>;

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FieldComponent, FieldValidator } from "../types";
+import { FieldComponent, FieldValidator } from "../";
 import { observer } from "mobx-react";
 import { FormContext } from "..";
 

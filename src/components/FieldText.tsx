@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldComponent, FieldValidator } from "../types";
+import { FieldComponent, FieldValidator } from "../types/types";
 import { Field } from "./Field";
 
 const FieldTextRenderer: FieldComponent = (props) => {

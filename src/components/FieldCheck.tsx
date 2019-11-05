@@ -1,4 +1,4 @@
-import { FieldComponent, FieldValidator } from "../types";
+import { FieldComponent, FieldValidator } from "../types/types";
 import { Field } from "./Field";
 import React from "react";
 
