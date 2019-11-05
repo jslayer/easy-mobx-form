@@ -4,5 +4,5 @@ import { FormContext } from "..";
 
 export const Initialized: React.FC = observer(props => {
     const context = useContext(FormContext);
-    return context.initializing ? null : <>props.children</>;
+    return context.initializing ? null : <>{props.children}</>;
 });
