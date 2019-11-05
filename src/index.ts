@@ -7,6 +7,7 @@ export { Reset } from "./components/Reset";
 export { Submit } from "./components/Submit";
 export { Validating } from "./components/Validating";
 export { Initializing } from "./components/Initializing";
+export { Initialized } from "./components/Initialized";
 export { SubmitSuccessMessage } from "./components/SubmitSuccessMessage";
 export { SubmitErrorMessage } from "./components/SubmitErrorMessage";
 export { Errors } from "./components/Errors";
