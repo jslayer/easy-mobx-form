@@ -2,6 +2,12 @@
   "transform": {
     "^.+\\.(t|j)sx?$": "ts-jest"
   },
-  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+  "testMatch": [
+    "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs,ts,tsx}",
+    "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs,ts,tsx}"
+  ],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "setupFilesAfterEnv": [
+    "<rootDir>/scripts/setupTests.ts"
+  ]
 }

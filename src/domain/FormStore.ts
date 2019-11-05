@@ -70,7 +70,9 @@ export class FormStore<V> {
         } else {
             this.initialValues = initializer;
             this.values = initializer;
-            initializeCallback();
+            if (typeof initializeCallback === "function") {
+                initializeCallback();
+            }
         }
         return this;
     }

@@ -5,7 +5,7 @@ import { SubmitCallback, ValidateCallback } from "../types";
 
 export const Form: React.FC<{
     use: FormStore<any>;
-    initialValues: object;
+    initialValues: object | Promise<any>;
     submit: SubmitCallback<any>;
     validate?: ValidateCallback<any>;
     forceValidation?: boolean;
