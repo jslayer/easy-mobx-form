@@ -1,6 +1,6 @@
 {
   "name": "easy-mobx-form",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Easy form building library based on mobx-react",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
