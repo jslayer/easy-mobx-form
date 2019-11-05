@@ -14,7 +14,7 @@ export { Errors } from "./components/Errors";
 export { Field } from "./components/Field";
 export { FieldText } from "./components/FieldText";
 export { FieldCheck } from "./components/FieldCheck";
-export { Value } from "./components/Value";
 export { Submitting } from "./components/Submitting";
+export { Values } from "./components/Values";
 
 export * from "./types/types";
