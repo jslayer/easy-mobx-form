@@ -1,8 +1,8 @@
-import { FieldComponent, FieldValidator } from "..";
+import { FieldRenderer, FieldValidator } from "..";
 import { Field } from "./Field";
 import React from "react";
 
-const FieldCheckRenderer: FieldComponent = (props) => {
+const FieldCheckRenderer: FieldRenderer = (props) => {
     const {
         value,
         onChange,
