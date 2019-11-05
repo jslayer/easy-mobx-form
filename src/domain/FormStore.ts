@@ -1,6 +1,14 @@
 import { action, observable } from "mobx";
 import isEqual from "lodash/isEqual";
-import { AvailabilityCallback, FieldProps, FieldValidator, Initializer, PossibleErrors, SubmitCallback, ValidateCallback } from "../types";
+import {
+    AvailabilityCallback,
+    FieldProps,
+    FieldValidator,
+    Initializer,
+    PossibleErrors,
+    SubmitCallback,
+    ValidateCallback,
+} from "../types";
 import { SubmitError } from "./SubmitError";
 
 export class FormStore<V> {
@@ -84,32 +92,39 @@ export class FormStore<V> {
             ? this.validateCallback(this.values, this.initialValues)
             : new Promise(rs => rs(null));
 
-        validationPromise
-            .then((validationResult: object | null) => {
-                const mainErrors: PossibleErrors<V> = validationResult;
-                const localErrors: PossibleErrors<V> = {};
+        validationPromise.then((validationResult: object | null) => {
+            const mainErrors: PossibleErrors<V> = validationResult;
+            const localErrors: PossibleErrors<V> = {};
 
-                if (this.validators) {
-                    const names = Object.keys(this.validators) as (keyof V)[];
+            if (this.validators) {
+                const names = Object.keys(this.validators) as (keyof V)[];
 
-                    names.map((key) => {
-                        const error = this.validators[key](this.values[key], key, this.initialValues[key], this.values, this.initialValues);
+                names.map(key => {
+                    const error = this.validators[key](
+                        this.values[key],
+                        key,
+                        this.initialValues[key],
+                        this.values,
+                        this.initialValues,
+                    );
 
-                        if (error) {
-                            localErrors[key] = error;
-                        }
-                    });
-                }
+                    if (error) {
+                        localErrors[key] = error;
+                    }
+                });
+            }
 
-                this.valid = !Object.keys(mainErrors || {}).length && !Object.keys(localErrors || {}).length;
+            this.valid = !Object.keys(mainErrors || {}).length && !Object.keys(localErrors || {}).length;
 
-                this.errors = this.valid ? null : {
-                    ...localErrors || {},
-                    ...mainErrors || {},
-                };
+            this.errors = this.valid
+                ? null
+                : {
+                      ...(localErrors || {}),
+                      ...(mainErrors || {}),
+                  };
 
-                this.validating = false;
-            });
+            this.validating = false;
+        });
     }
 
     @action
@@ -120,7 +135,7 @@ export class FormStore<V> {
             this.submitError = null;
             try {
                 this.submitCallback(this.values, this.initialValues)
-                    .then((result) => {
+                    .then(result => {
                         if (this.submitting) {
                             this.submitting = false;
                             this.submitMessage = result;
