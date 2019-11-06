@@ -4,13 +4,13 @@ Easy form building library based on mobx-react
 
 ## Installing
 
-```shell script
+```
     yarn add easy-modx-form
 ```
 
 or
 
-```shell script
+```
     npm install easy-modx-form
 ```
 
@@ -33,7 +33,7 @@ Form validation works along with per-field validation but have higher priority. 
 
 #### Form examples
 
-```jsx
+```tsx
 import React from "react";
 import ReactDOM from "react-dom";
 import { Form, createFormStore, Submit, FieldText } from "eazy-modx-form";
@@ -90,7 +90,7 @@ parameters: Same as [FieldText](#fieldtext)
 
 General component for build your own custom field components
 
-parameters Same as [FieldText](#fieldtext) plus:
+parameters same as [FieldText](#fieldtext) plus:
 
 - component: [FieldRenderer](#fieldrenderer);
 - data: optional `object` which will be passed into field renderer component
