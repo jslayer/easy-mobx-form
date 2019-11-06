@@ -19,7 +19,7 @@ const FieldTextRenderer: FieldRenderer = (props) => {
     };
 
     return (
-        <div>
+        <>
             <input
                 type="text"
                 name={name}
@@ -30,7 +30,7 @@ const FieldTextRenderer: FieldRenderer = (props) => {
             {
                 error && (forceError || !pristine) ? <div style={{ color: "red" }}>{error}</div> : null
             }
-        </div>
+        </>
     );
 };
 
