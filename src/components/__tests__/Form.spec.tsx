@@ -17,7 +17,7 @@ describe("<Form />", () => {
     it("renders Form component", () => {
         const wrapper = shallow(
             <Form
-                use={form}
+                store={form}
                 submit={() => void(0)}
                 initialValues={{ name: "John" }}
             />,

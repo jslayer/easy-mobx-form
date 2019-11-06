@@ -16,6 +16,7 @@ export const Submit: React.FC<{
 
     return (
         <button
+            name={props.name}
             type={props.type}
             onClick={onClick}
             value={props.value}
