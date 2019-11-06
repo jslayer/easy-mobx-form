@@ -84,7 +84,7 @@ parameters:
 
 Basic checkbox field component.
 
-parameters: Same as [FieldText](#fieldtext)
+parameters: Same as for [FieldText](#fieldtext)
 
 ### Field
 
