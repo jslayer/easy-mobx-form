@@ -21,7 +21,7 @@ Form validation works along with per-field validation but have higher priority. 
 
 #### Form examples
 
-```js
+```typescript jsx
 import React from "react";
 import ReactDOM from "react-dom";
 import { Form, createFormStore, Submit, FieldText } from "eazy-modx-form";
@@ -58,7 +58,7 @@ parameters:
 
 ```html
 ...
-<Form store={form} ... >
+<Form store={form}>
     ...
     <FormText
         name="name"
