@@ -12,11 +12,12 @@ export type FieldProps<V = object> = {
     name: string;
 };
 
-export type FieldRenderer = React.FC<
+export type FieldRenderer<D = object | undefined> = React.FC<
     FieldProps & {
         onChange: (value: any) => void;
         forceError?: boolean;
         initializing: boolean;
+        data?: D;
     }
 >;
 
@@ -25,6 +26,7 @@ export type BaseFieldComponent = React.FC<{
     component: FieldRenderer;
     validate?: FieldValidator;
     errorIfPristine?: boolean;
+    data?: object;
 }>;
 
 export type SubmitCallback<V = object> = (values: V, initialValues?: V) => Promise<string | object>;

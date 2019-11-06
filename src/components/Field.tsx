@@ -20,6 +20,7 @@ export const Field: BaseFieldComponent = observer((props) => {
             initializing={context.initializing}
             onChange={onChange}
             forceError={props.errorIfPristine}
+            data={props.data}
         />
     );
 });

@@ -2,6 +2,18 @@
 
 Easy form building library based on mobx-react
 
+## Installing
+
+```shell script
+    yarn add easy-modx-form
+```
+
+or
+
+```shell script
+    npm install easy-modx-form
+```
+
 ## Components
 
 ### Form
@@ -70,7 +82,83 @@ parameters:
 
 ### FieldCheck
 
+Basic checkbox field component.
+
+parameters: Same as [FieldText](#fieldtext)
+
 ### Field
+
+General component for build your own custom field components
+
+parameters Same as [FieldText](#fieldtext) plus:
+
+- component: [FieldRenderer](#fieldrenderer);
+- data: optional `object` which will be passed into field renderer component
+
+#### Example (Twitter Bootstrap based form element)
+
+```jsx
+import React from "react";
+import { Field } from "easy-mobx-form";
+
+type TBTextFieldData = {
+    placeholder?: string;
+};
+
+const TBTextFieldRenderer: FieldRenderer<TBTextFieldData> = (props) => {
+    const {
+        value,
+        error,
+        onChange,
+        disabled,
+        pristine,
+        forceError,
+        initializing,
+        name,
+    } = props;
+    
+    const handleChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+        onChange(e.currentTarget.value);
+    };
+
+    return (
+        <>
+            <input
+                type="text"
+                name={name}
+                onChange={handleChange}
+                className="form-control"
+                value={value || ""}
+                disabled={disabled || initializing}
+            />
+            {
+                error && (forceError || !pristine) 
+                    ? <small class="form-text text-muted">{error}</small> 
+                    : null
+            }
+        </>
+    );
+}
+
+export const TBTextField: React.FC<BaseFieldComponent & {
+    data?: TBTextFieldData;
+    // custom properties
+    label: string;
+}> = (props) => {
+    return (
+        <div class="form-group">
+            <label>{props.label}</label>
+            <Field
+                component={TBTextFieldRenderer}
+                name={props.name}
+                validate={props.validate}
+                errorIfPristine={props.errorIfPristine}
+                data={props.data}
+            />
+        </div>
+    );
+};
+```
 
 ### Submit
 
@@ -103,4 +191,6 @@ parameters:
 #### AvailabilityCallback
 
 #### FieldValidator
+
+#### FieldRenderer
 
