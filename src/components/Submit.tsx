@@ -3,15 +3,17 @@ import React, { useContext } from "react";
 import { FormContext } from "..";
 
 export const Submit: React.FC<{
-    name: string;
     type: "button" | "submit"
+    name?: string;
     value?: string;
     className?: string;
 }> = observer((props) => {
     const context = useContext(FormContext);
 
     const onClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-        context.handleChange(props.name)(e.currentTarget.value);
+        if (props.name) {
+            context.handleChange(props.name)(e.currentTarget.value);
+        }
     };
 
     return (
