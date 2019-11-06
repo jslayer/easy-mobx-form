@@ -27,7 +27,7 @@ parameters:
 - submit ([SubmitCallback](#submitcallback)) - submit callback. Required.
 - validate ([ValidateCallback](#validatecallback)) - validate callback. Optional.
 - availability ([AvailabilityCallback](#availabilitycallback)) - availability callback. Returns the list of fields which should be disabled. Optional.
-- forceValidation - force validation right after initializing form. Optional. Default: `false`
+- forceValidation - force validation right after initializing form. Optional. Default is `false`
 
 Form validation works along with per-field validation but have higher priority. Form validation could be asynchronous.
 
@@ -66,7 +66,7 @@ parameters:
 
 - name (string) - name of the form element
 - validate ([FieldValidator](#fieldvalidator)) - synchronous field validation function. Optional
-- errorIfPristine (boolean) - whether display or not display field error when current values is pristine
+- errorIfPristine (boolean) - whether display or not display field error when current values is pristine. Optional. Default is `false`
 
 ```html
 ...
@@ -90,8 +90,9 @@ parameters: Same as [FieldText](#fieldtext)
 
 General component for build your own custom field components
 
-parameters same as [FieldText](#fieldtext) plus:
-
+- name (string) - name of the form element
+- validate ([FieldValidator](#fieldvalidator)) - synchronous field validation function. Optional
+- errorIfPristine (boolean) - whether display or not display field error when current values is pristine. Default is `false`
 - component: [FieldRenderer](#fieldrenderer);
 - data: optional `object` which will be passed into field renderer component
 
