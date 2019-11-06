@@ -97,7 +97,7 @@ parameters Same as [FieldText](#fieldtext) plus:
 
 #### Example (Twitter Bootstrap based form element)
 
-```jsx
+```tsx
 import React from "react";
 import { Field } from "easy-mobx-form";
 
