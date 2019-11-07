@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
-import { FormContext } from "..";
+import { FormContext, SubmitErrorComponent } from "..";
 import { observer } from "mobx-react";
 
-const DefaultSubmitErrorMessage: React.FC = props => (
-    <div style={{ color: "red" }}>{props.children}</div>
+const DefaultSubmitErrorMessage: SubmitErrorComponent = props => (
+    <div style={{ color: "red" }}>{
+        typeof props.result === "string"
+            ? props.result
+            : JSON.stringify(props.children)
+    }</div>
 );
 
 export const SubmitErrorMessage: React.FC<{ component?: React.FC }> = observer(props => {
@@ -13,9 +17,9 @@ export const SubmitErrorMessage: React.FC<{ component?: React.FC }> = observer(p
 
     return (
         <>{
-            submitError ? (
+            submitError ?
                 <Component>{submitError}</Component>
-            ) : null
+                : null
         }</>
     );
 });

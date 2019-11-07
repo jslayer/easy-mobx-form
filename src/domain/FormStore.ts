@@ -28,7 +28,7 @@ export class FormStore<V> {
     public submitMessage = null as string | object;
 
     @observable
-    public submitError = null as string;
+    public submitError =null as string | object;
 
     @observable
     public errors = null as PossibleErrors<V>;
@@ -133,24 +133,20 @@ export class FormStore<V> {
             this.submitting = true;
             this.submitMessage = null;
             this.submitError = null;
-            try {
-                this.submitCallback(this.values, this.initialValues)
-                    .then(result => {
-                        if (this.submitting) {
-                            this.submitting = false;
-                            this.submitMessage = result;
-                        }
-                    })
-                    .catch((error: SubmitError) => {
-                        if (this.submitting) {
-                            this.submitting = false;
-                            this.submitError = error.message;
-                        }
-                    });
-            } catch (e) {
-                this.submitting = false;
-                this.submitError = e.message;
-            }
+
+            this.submitCallback(this.values, this.initialValues)
+                .then(result => {
+                    if (this.submitting) {
+                        this.submitting = false;
+                        this.submitMessage = result;
+                    }
+                })
+                .catch((error: SubmitError) => {
+                    if (this.submitting) {
+                        this.submitting = false;
+                        this.submitError = error.message;
+                    }
+                });
         }
     }
 

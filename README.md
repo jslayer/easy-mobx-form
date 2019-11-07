@@ -22,11 +22,11 @@ Main form component. Setups contexts for the inner elements (such as inputs, but
 
 parameters:
 
-- store ([FormStore](#formstore)) - form store instance
+- store ([FormStore][FormStore]) - form store instance
 - initialValues - object with initial values or Promise which will resolve such object
-- submit ([SubmitCallback](#submitcallback)) - submit callback
-- validate? ([ValidateCallback](#validatecallback)) - validate callback
-- availability? ([AvailabilityCallback](#availabilitycallback)) - availability callback. Returns the list of fields which should be disabled
+- submit ([SubmitCallback][SubmitCallback]) - submit callback
+- validate? ([ValidateCallback][ValidateCallback]) - validate callback
+- availability? ([AvailabilityCallback][AvailabilityCallback]) - availability callback. Returns the list of fields which should be disabled
 - forceValidation? (boolean = false) - force validation right after initializing form
 
 Form validation works along with per-field validation but have higher priority. Form validation could be asynchronous.
@@ -65,7 +65,7 @@ Basic text field component.
 parameters:
 
 - name (string) - name of the form element
-- validate ([FieldValidator](#fieldvalidator)) - synchronous field validation function
+- validate ([FieldValidator][FieldValidator]) - synchronous field validation function
 - errorIfPristine? (boolean = false) - whether display or not display field error when current values is pristine
 
 ```html
@@ -93,8 +93,8 @@ General component for build your own custom field components
 parameters:
 
 - name (string) - name of the form element
-- component: [FieldRenderer](#fieldrenderer);
-- validate? ([FieldValidator](#fieldvalidator)) - synchronous field validation function
+- component: [FieldRenderer][FieldRenderer];
+- validate? ([FieldValidator][FieldValidator]) - synchronous field validation function
 - errorIfPristine? (boolean = false) - whether display or not display field error when current values is pristine. Default is `false`
 - data? (object) - `object` which will be passed into field renderer component
 
@@ -169,7 +169,7 @@ Submit button
 
 parameters:
 
-- type ("button" | "submit") - type of the button
+- type ("button" \| "submit") - type of the button
 - name? (string) - name of the field. will be used for saving button value on submit
 - value? (string) - if name is set, than this value will be saved in form values on click
 - className? (string) - className for the `button` element
@@ -272,25 +272,150 @@ const App: React.FC = () => (
 
 ### Submitting
 
+Component which children will be rendered while form is submitting.
+
+```tsx
+import React from "react";
+import { Form, Submitting } from "eazy-modx-form";
+
+const App: React.FC = () => (
+    <Form store={form}>
+        <Submitting>
+            Submitting...
+        </Submitting>
+    </Form>
+);
+```
+
 ### SubmitSuccessMessage
+
+Helper component for rendering successful submit results.
+
+properties:
+
+- component? (React.FC<{ component: [SubmitSuccessComponent][SubmitSuccessComponent] }>) - submit message renderer
+
+```tsx
+import React from "react";
+import { Form, SubmitSuccessComponent } from "eazy-modx-form";
+
+type SubmitResult = {
+    message: string;
+    id: number;
+};
+
+const SubmitSucessRenderer: SubmitSuccessComponent<SubmitResult> = (props) => (
+    <div className="alert alert-success">
+        Success [{props.result.id}]: {props.result.message}
+    </div>
+)
+
+const App: React.FC = () => (
+    <Form store={form}>
+        <SubmitSuccessMessage
+            component={SubmitSucessRenderer}
+        />
+    </Form>
+);
+```
 
 ### SubmitErrorMessage
 
+Helper component for rendering submitting errors
+
+properties:
+
+- component? (React.FC<{ component: [SubmitErrorComponent][SubmitErrorComponent] }>) - error message renderer
+
+```tsx
+import React from "react";
+import { Form, SubmitErrorMessage } from "eazy-modx-form";
+
+type SubmittingError = {
+    message: string;
+};
+
+const SubmitErrorRenderer: SubmitErrorComponent<SubmittingError> = (props) => (
+    <div className="alert alert-error">
+        Error: {props.result.message}
+    </div>
+)
+
+const App: React.FC = () => (
+    <Form store={form}>
+        <SubmitErrorComponent
+            component={SubmitErrorRenderer}
+        />
+    </Form>
+);
+```
+
 ### Validating
+
+Renders its children while form is validation (i.e. when async validation is implemented)
+
+```tsx
+import React from "react";
+import { Form, Validating } from "eazy-modx-form";
+
+const App: React.FC = () => (
+    <Form store={form}>
+        <Validating>
+            Wait please...
+        </Submitting>
+    </Form>
+);
+```
 
 ### Values
 
-### Interfaces
+Component for in-place accessing to the form values
 
-#### FormStore
+```tsx
+import React from "react";
+import { Form, Values, createFormStore, Submit } from "eazy-modx-form";
 
-#### SubmitCallback
+type FormValues = {
+    firstName: string;
+    lastName: string;
+};
 
-#### ValidateCallback
+const form = createFormStore<FormValues>();
 
-#### AvailabilityCallback
+const initialValues = {
+  firstName: "John",
+  lastName: "Wick",
+};
 
-#### FieldValidator
+const App: React.FC = () => (
+    <Form
+        store={form}
+        initialValues={initialValues}
+    >
+        <Values>
+            {(values: FormValues) => (
+                <div>
+                    <div>First name: {values.firstName}</div>
+                    <div>Last name: {values.lastName}</div>
+                </div>
+            )}
+        </Values>
 
-#### FieldRenderer
+        <div>
+            <FormText name="firstName" />
+            <FormText name="lastName" />
+        </div>
 
+        <Submit>Submit</Submit>
+    </Form>
+);
+```
+
+[FormStore]: https://github.com/jslayer/easy-mobx-form/blob/master/src/domain/FormStore.ts
+[SubmitCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L39
+[ValidateCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L41
+[AvailabilityCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L43
+[FieldRenderer]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L15
+[FieldValidator]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L47
+[SubmitSuccessComponent]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L35
+[SubmitErrorComponent]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L37

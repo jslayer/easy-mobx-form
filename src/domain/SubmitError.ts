@@ -1,7 +1,9 @@
-export class SubmitError {
-    message = null as string;
+import { SubmitErrorResult } from "..";
 
-    constructor(message: string) {
+export class SubmitError<R = string> {
+    message = null as SubmitErrorResult<R>;
+
+    constructor(message: SubmitErrorResult<R>) {
         this.message = message;
     }
 }

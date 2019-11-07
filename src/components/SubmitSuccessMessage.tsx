@@ -1,21 +1,25 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react";
-import { FormContext } from "..";
+import { FormContext, SubmitSuccessComponent } from "..";
 
-const DefaultSubmitSuccessMessage: React.FC = props => (
-    <div style={{ color: "green" }}>{props.children}</div>
+const DefaultSubmitSuccessMessage: SubmitSuccessComponent = props => (
+    <div style={{ color: "green" }}>{
+        typeof props.result === "string"
+            ? props.result
+            : JSON.stringify(props.children)
+    }</div>
 );
 
-export const SubmitSuccessMessage: React.FC<{ component?: React.FC }> = observer((props) => {
+export const SubmitSuccessMessage: React.FC<{ component?: SubmitSuccessComponent }> = observer((props) => {
     const context = useContext(FormContext);
-    const submitMessage = context.submitMessage;
+    const submitResult = context.submitMessage;
     const Component = props.component || DefaultSubmitSuccessMessage;
 
     return (
         <>{
-            submitMessage ? (
-                <Component>{submitMessage}</Component>
-            ) : null
+            submitResult
+                ? <Component result={submitResult}/>
+                : null
         }</>
     );
 });

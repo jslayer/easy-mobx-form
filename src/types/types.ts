@@ -29,7 +29,14 @@ export type BaseFieldComponent = React.FC<{
     data?: object;
 }>;
 
-export type SubmitCallback<V = object> = (values: V, initialValues?: V) => Promise<string | object>;
+export type SubmitSuccessResult<R = undefined> = string | object | R;
+export type SubmitErrorResult<R = undefined> = string | object | R;
+
+export type SubmitSuccessComponent<R = undefined> = React.FC<{result: SubmitSuccessResult<R>}>
+
+export type SubmitErrorComponent<R = undefined> = React.FC<{result: SubmitErrorResult<R>}>
+
+export type SubmitCallback<V = object, R = undefined> = (values: V, initialValues?: V) => Promise<SubmitSuccessResult<R>>;
 
 export type ValidateCallback<V = object> = (values: V, initialValues?: V) => Promise<object>;
 
