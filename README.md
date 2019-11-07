@@ -95,7 +95,7 @@ parameters:
 - name (string) - name of the form element
 - component: [FieldRenderer][FieldRenderer];
 - validate? ([FieldValidator][FieldValidator]) - synchronous field validation function
-- errorIfPristine? (boolean = false) - whether display or not display field error when current values is pristine. Default is `false`
+- errorIfPristine? (boolean = false) - whether display or not display field error when current values is pristine.
 - data? (object) - `object` which will be passed into field renderer component
 
 #### Example (Twitter Bootstrap based form element)

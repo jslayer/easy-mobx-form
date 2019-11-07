@@ -25,10 +25,10 @@ export class FormStore<V> {
     public initializingError = null as Error;
 
     @observable
-    public submitMessage = null as string | object;
+    public submitResult = null as object | string;
 
     @observable
-    public submitError = null as string | object;
+    public submitError = null as object | string;
 
     @observable
     public errors = null as PossibleErrors<V>;
@@ -60,7 +60,7 @@ export class FormStore<V> {
     public initialize(initializer: Initializer<V>, initializeCallback?: () => void) {
         this.pristine = true;
         this.validators = {};
-        this.submitMessage = null;
+        this.submitResult = null;
 
         if (initializer instanceof Promise) {
             this.initializing = true;
@@ -131,22 +131,29 @@ export class FormStore<V> {
     public submit() {
         if (this.valid && this.submitCallback) {
             this.submitting = true;
-            this.submitMessage = null;
+            this.submitResult = null;
             this.submitError = null;
 
-            this.submitCallback(this.values, this.initialValues)
-                .then(result => {
-                    if (this.submitting) {
-                        this.submitting = false;
-                        this.submitMessage = result;
-                    }
-                })
-                .catch((error: SubmitError) => {
-                    if (this.submitting) {
-                        this.submitting = false;
-                        this.submitError = error.message;
-                    }
-                });
+            const submitResult = this.submitCallback(this.values, this.initialValues);
+
+            if (submitResult instanceof Promise) {
+                submitResult
+                    .then(result => {
+                        if (this.submitting) {
+                            this.submitting = false;
+                            this.submitResult = result;
+                        }
+                    })
+                    .catch((error: SubmitError) => {
+                        if (this.submitting) {
+                            this.submitting = false;
+                            this.submitError = error.message;
+                        }
+                    });
+            } else {
+                this.submitting = false;
+                this.submitResult = submitResult;
+            }
         }
     }
 
@@ -193,7 +200,7 @@ export class FormStore<V> {
         this.resetValues();
         this.pristine = true;
         this.submitting = false;
-        this.submitMessage = null;
+        this.submitResult = null;
         return this;
     }
 

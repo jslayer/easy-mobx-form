@@ -43,11 +43,9 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "jest": "^24.9.0",
-    "mobx": "^5.14.2",
+    "mobx": "^5.0.0",
     "mobx-react": "^6.1.4",
     "prettier": "^1.18.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
     "ts-jest": "^24.1.0",
     "tslint": "^6.0.0-beta0",
     "tslint-config-prettier": "^1.18.0",
@@ -57,7 +55,7 @@
     "lodash": "^4.17.15",
     "mobx": "^5.0.0",
     "mobx-react": "^6.1.4",
-    "react": "^16.8.0 || 16.9.0-alpha.0"
+    "react": "^16.8.0"
   },
   "dependencies": {}
 }

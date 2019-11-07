@@ -6,13 +6,15 @@ const DefaultSubmitSuccessMessage: SubmitSuccessComponent = props => (
     <div style={{ color: "green" }}>{
         typeof props.result === "string"
             ? props.result
-            : JSON.stringify(props.children)
+            : JSON.stringify(props.result)
     }</div>
 );
 
-export const SubmitSuccessMessage: React.FC<{ component?: SubmitSuccessComponent }> = observer((props) => {
+export const SubmitSuccessMessage: React.FC<{
+    component?: SubmitSuccessComponent<any>;
+}> = observer((props) => {
     const context = useContext(FormContext);
-    const submitResult = context.submitMessage;
+    const submitResult = context.submitResult;
     const Component = props.component || DefaultSubmitSuccessMessage;
 
     return (

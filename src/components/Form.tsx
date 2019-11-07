@@ -6,7 +6,7 @@ import { SubmitCallback, ValidateCallback } from "..";
 export const Form: React.FC<{
     store: FormStore<any>;
     initialValues: object | Promise<any>;
-    submit: SubmitCallback<any>;
+    submit: SubmitCallback<any, any>;
     validate?: ValidateCallback<any>;
     availability?: AvailabilityCallback<any>;
     forceValidation?: boolean;

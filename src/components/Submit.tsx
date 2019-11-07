@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { FormContext } from "..";
 
 export const Submit: React.FC<{
-    type: "button" | "submit"
+    type?: "button" | "submit"
     name?: string;
     value?: string;
     className?: string;
@@ -19,7 +19,7 @@ export const Submit: React.FC<{
     return (
         <button
             name={props.name}
-            type={props.type}
+            type={props.type || "submit"}
             onClick={onClick}
             value={props.value}
             disabled={!context.valid || context.submitting || context.validating || context.initializing}
