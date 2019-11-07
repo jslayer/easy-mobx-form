@@ -28,7 +28,7 @@ export class FormStore<V> {
     public submitMessage = null as string | object;
 
     @observable
-    public submitError =null as string | object;
+    public submitError = null as string | object;
 
     @observable
     public errors = null as PossibleErrors<V>;
