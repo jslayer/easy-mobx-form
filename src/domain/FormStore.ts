@@ -102,7 +102,7 @@ export class FormStore<V> {
                 const error = this.validators[key](
                     this.values[key],
                     key,
-                    this.initialValues[key],
+                    this.initialValues && this.initialValues[key],
                     this.values,
                     this.initialValues,
                 );
@@ -205,7 +205,7 @@ export class FormStore<V> {
     public getField(name: string): FieldProps {
         const tName = name as keyof V;
         const value = this.values[tName];
-        const initialValue = this.initialValues[tName];
+        const initialValue = this.initialValues && this.initialValues[tName];
 
         const pristine = isEqual(value, initialValue);
         const touched = !pristine;
@@ -229,7 +229,7 @@ export class FormStore<V> {
     }
 
     private resetValues() {
-        this.values = Object.keys(this.initialValues).reduce((collect, key) => {
+        this.values = Object.keys(this.initialValues || {}).reduce((collect, key) => {
             // @ts-ignore
             collect[key] = this.initialValues[key];
             return collect;
