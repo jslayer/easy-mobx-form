@@ -42,7 +42,10 @@ export type SubmitCallback<V = object, R = object | string> = (
     initialValues?: V,
 ) => Promise<SubmitSuccessResult<R>> | SubmitSuccessResult<R>;
 
-export type ValidateCallback<V = object> = (values: V, initialValues?: V) => PossibleErrors<V> | Promise<PossibleErrors<V>> | null;
+export type ValidateCallback<V = object> = (
+    values: V,
+    initialValues?: V,
+) => PossibleErrors<V> | Promise<PossibleErrors<V>> | null;
 
 export type AvailabilityCallback<V = object> = (values: V, initialValues?: V) => { [key in keyof V]?: boolean };
 

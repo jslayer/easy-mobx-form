@@ -88,13 +88,10 @@ export class FormStore<V> {
     @action
     public async validate() {
         this.validating = true;
-        const validation = this.validateCallback
-            ? this.validateCallback(this.values, this.initialValues)
-            : null;
+        const validation = this.validateCallback ? this.validateCallback(this.values, this.initialValues) : null;
 
-        const mainErrors: PossibleErrors<V> = validation instanceof Promise
-            ? await validation
-            : ( validation ? validation : {} );
+        const mainErrors: PossibleErrors<V> =
+            validation instanceof Promise ? await validation : validation ? validation : {};
 
         const localErrors: PossibleErrors<V> = {};
 
@@ -121,9 +118,9 @@ export class FormStore<V> {
         this.errors = this.valid
             ? null
             : {
-                ...(localErrors || {}),
-                ...(mainErrors || {}),
-            };
+                  ...(localErrors || {}),
+                  ...(mainErrors || {}),
+              };
 
         this.validating = false;
     }
