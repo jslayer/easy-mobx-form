@@ -2,39 +2,47 @@ import { FieldRenderer, FieldValidator } from "..";
 import { Field } from "./Field";
 import React from "react";
 
-const FieldCheckRenderer: FieldRenderer = (props) => {
+type Value = string | number;
+
+const FieldRadioRenderer: FieldRenderer<{value: Value}> = (props) => {
     const {
         value,
         onChange,
         disabled,
         initializing,
         name,
+        data,
         className,
     } = props;
 
     const handleChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
-        onChange(e.currentTarget.checked);
+        onChange(data.value);
     };
 
     return (
         <input
-            type="checkbox"
+            type="radio"
             name={name}
             onChange={handleChange}
             disabled={disabled || initializing}
-            checked={value || false}
+            value={data.value}
+            checked={data.value === value || false}
             className={className}
         />
     );
 };
 
-export const FieldCheck: React.FC<{
+export const FieldRadio: React.FC<{
     name: string;
-    validate?: FieldValidator;
+    value: Value;
     className?: string;
+    validate?: FieldValidator;
 }> = props => <Field
     name={props.name}
     validate={props.validate}
-    component={FieldCheckRenderer}
+    component={FieldRadioRenderer}
     className={props.className}
+    data={{
+        value: props.value
+    }}
 />;

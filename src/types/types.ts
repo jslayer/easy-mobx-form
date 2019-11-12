@@ -15,8 +15,9 @@ export type FieldProps<V = object> = {
 export type FieldRenderer<D = object | undefined> = React.FC<
     FieldProps & {
         onChange: (value: any) => void;
-        forceError?: boolean;
         initializing: boolean;
+        forceError?: boolean;
+        className?: string;
         data?: D;
     }
 >;
@@ -25,8 +26,8 @@ export type BaseFieldComponent = React.FC<{
     name: string;
     component: FieldRenderer;
     validate?: FieldValidator;
-    errorIfPristine?: boolean;
     data?: object;
+    className?: string;
 }>;
 
 export type SubmitSuccessResult<R = object> = R extends string ? string : R;
@@ -41,7 +42,7 @@ export type SubmitCallback<V = object, R = object | string> = (
     initialValues?: V,
 ) => Promise<SubmitSuccessResult<R>> | SubmitSuccessResult<R>;
 
-export type ValidateCallback<V = object> = (values: V, initialValues?: V) => Promise<object>;
+export type ValidateCallback<V = object> = (values: V, initialValues?: V) => PossibleErrors<V> | Promise<PossibleErrors<V>> | null;
 
 export type AvailabilityCallback<V = object> = (values: V, initialValues?: V) => { [key in keyof V]?: boolean };
 

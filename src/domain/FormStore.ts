@@ -46,7 +46,7 @@ export class FormStore<V> {
     public values = {} as V;
 
     @observable
-    public initialValues = {} as V;
+    public initialValues = null as V;
 
     private validators = {} as { [key in keyof V]?: FieldValidator };
 
@@ -86,45 +86,46 @@ export class FormStore<V> {
     }
 
     @action
-    public validate() {
+    public async validate() {
         this.validating = true;
-        const validationPromise = this.validateCallback
+        const validation = this.validateCallback
             ? this.validateCallback(this.values, this.initialValues)
-            : new Promise(rs => rs(null));
+            : null;
 
-        validationPromise.then((validationResult: object | null) => {
-            const mainErrors: PossibleErrors<V> = validationResult;
-            const localErrors: PossibleErrors<V> = {};
+        const mainErrors: PossibleErrors<V> = validation instanceof Promise
+            ? await validation
+            : ( validation ? validation : {} );
 
-            if (this.validators) {
-                const names = Object.keys(this.validators) as (keyof V)[];
+        const localErrors: PossibleErrors<V> = {};
 
-                names.map(key => {
-                    const error = this.validators[key](
-                        this.values[key],
-                        key,
-                        this.initialValues[key],
-                        this.values,
-                        this.initialValues,
-                    );
+        if (this.validators) {
+            const names = Object.keys(this.validators) as (keyof V)[];
 
-                    if (error) {
-                        localErrors[key] = error;
-                    }
-                });
-            }
+            names.map(key => {
+                const error = this.validators[key](
+                    this.values[key],
+                    key,
+                    this.initialValues[key],
+                    this.values,
+                    this.initialValues,
+                );
 
-            this.valid = !Object.keys(mainErrors || {}).length && !Object.keys(localErrors || {}).length;
+                if (error) {
+                    localErrors[key] = error;
+                }
+            });
+        }
 
-            this.errors = this.valid
-                ? null
-                : {
-                      ...(localErrors || {}),
-                      ...(mainErrors || {}),
-                  };
+        this.valid = !Object.keys(mainErrors || {}).length && !Object.keys(localErrors || {}).length;
 
-            this.validating = false;
-        });
+        this.errors = this.valid
+            ? null
+            : {
+                ...(localErrors || {}),
+                ...(mainErrors || {}),
+            };
+
+        this.validating = false;
     }
 
     @action

@@ -19,8 +19,8 @@ export const Field: BaseFieldComponent = observer((props) => {
             {...field}
             initializing={context.initializing}
             onChange={onChange}
-            forceError={props.errorIfPristine}
             data={props.data}
+            className={props.className}
         />
     );
 });

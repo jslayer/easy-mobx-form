@@ -66,7 +66,7 @@ parameters:
 
 - name (string) - name of the form element
 - validate ([FieldValidator][FieldValidator]) - synchronous field validation function
-- errorIfPristine? (boolean = false) - whether display or not display field error when current values is pristine
+- className? (string) - className string value which will be added to input element
 
 ```html
 ...
@@ -80,9 +80,21 @@ parameters:
 ...
 ```
 
+### FieldTextArea
+
+Basic textarea field component.
+
+parameters: Same as for [FieldText](#fieldtext)
+
 ### FieldCheck
 
 Basic checkbox field component.
+
+parameters: Same as for [FieldText](#fieldtext)
+
+### FieldRadio
+
+Basic radio field component.
 
 parameters: Same as for [FieldText](#fieldtext)
 
@@ -95,7 +107,6 @@ parameters:
 - name (string) - name of the form element
 - component: [FieldRenderer][FieldRenderer];
 - validate? ([FieldValidator][FieldValidator]) - synchronous field validation function
-- errorIfPristine? (boolean = false) - whether display or not display field error when current values is pristine.
 - data? (object) - `object` which will be passed into field renderer component
 
 #### Example (Twitter Bootstrap based form element)
@@ -155,7 +166,6 @@ export const TBTextField: React.FC<BaseFieldComponent & {
                 component={TBTextFieldRenderer}
                 name={props.name}
                 validate={props.validate}
-                errorIfPristine={props.errorIfPristine}
                 data={props.data}
             />
         </div>
@@ -234,6 +244,15 @@ By default will renders simple list of errors:
 </ul>
 ```
 
+### Error
+
+Component for rendering single error message (returned by validation)
+
+parameters:
+
+- name (string) - name of the field
+- component? (React.FC) - error message decorator component
+
 ### Initialized
 
 Wrapper component which children will be rendered only when form is initialized.
@@ -293,7 +312,7 @@ Helper component for rendering successful submit results.
 
 properties:
 
-- component? (React.FC<{ component: [SubmitSuccessComponent][SubmitSuccessComponent] }>) - submit message renderer
+- component? ([SubmitSuccessComponent][SubmitSuccessComponent]) - submit message renderer
 
 ```tsx
 import React from "react";
@@ -325,7 +344,7 @@ Helper component for rendering submitting errors
 
 properties:
 
-- component? (React.FC<{ component: [SubmitErrorComponent][SubmitErrorComponent] }>) - error message renderer
+- component? ([SubmitErrorComponent][SubmitErrorComponent]) - error message renderer
 
 ```tsx
 import React from "react";
@@ -412,10 +431,10 @@ const App: React.FC = () => (
 ```
 
 [FormStore]: https://github.com/jslayer/easy-mobx-form/blob/master/src/domain/FormStore.ts
-[SubmitCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L39
-[ValidateCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L41
-[AvailabilityCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L43
+[SubmitCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L40
+[ValidateCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L45
+[AvailabilityCallback]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L47
 [FieldRenderer]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L15
-[FieldValidator]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L47
-[SubmitSuccessComponent]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L35
-[SubmitErrorComponent]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L37
+[FieldValidator]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L51
+[SubmitSuccessComponent]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L36
+[SubmitErrorComponent]: https://github.com/jslayer/easy-mobx-form/blob/master/src/types/types.ts#L38

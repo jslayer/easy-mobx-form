@@ -11,9 +11,12 @@ export { Initialized } from "./components/Initialized";
 export { SubmitSuccessMessage } from "./components/SubmitSuccessMessage";
 export { SubmitErrorMessage } from "./components/SubmitErrorMessage";
 export { Errors } from "./components/Errors";
+export { Error } from "./components/Error";
 export { Field } from "./components/Field";
 export { FieldText } from "./components/FieldText";
+export { FieldTextArea } from "./components/FieldTextArea";
 export { FieldCheck } from "./components/FieldCheck";
+export { FieldRadio } from "./components/FieldRadio";
 export { Submitting } from "./components/Submitting";
 export { Values } from "./components/Values";
 

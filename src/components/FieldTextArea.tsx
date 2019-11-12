@@ -2,7 +2,7 @@ import React from "react";
 import { FieldRenderer, FieldValidator } from "..";
 import { Field } from "./Field";
 
-const FieldTextRenderer: FieldRenderer = (props) => {
+const FieldTextAreaRenderer: FieldRenderer = (props) => {
     const {
         value,
         onChange,
@@ -12,14 +12,13 @@ const FieldTextRenderer: FieldRenderer = (props) => {
         className,
     } = props;
 
-    const handleChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
         onChange(e.currentTarget.value);
     };
 
     return (
         <>
-            <input
-                type="text"
+            <textarea
                 name={name}
                 onChange={handleChange}
                 value={value || ""}
@@ -30,13 +29,13 @@ const FieldTextRenderer: FieldRenderer = (props) => {
     );
 };
 
-export const FieldText: React.FC<{
+export const FieldTextArea: React.FC<{
     name: string;
     validate?: FieldValidator;
     className?: string;
 }> = props => <Field
     name={props.name}
     validate={props.validate}
-    component={FieldTextRenderer}
+    component={FieldTextAreaRenderer}
     className={props.className}
 />;

@@ -13,15 +13,17 @@ export const Form: React.FC<{
 }> = (props) => {
     const store = props.store;
 
-    if (!isEqual(props.initialValues, store.initialValues)) {
+    const initialValues = props.initialValues;
+
+    if (props.validate) {
+        store.setupValidation(props.validate);
+    }
+
+    if (!isEqual(initialValues, store.initialValues)) {
         store.initialize(
             props.initialValues,
             props.forceValidation ? () => store.validate() : null,
         );
-    }
-
-    if (props.validate) {
-        store.setupValidation(props.validate);
     }
 
     if (props.submit) {
