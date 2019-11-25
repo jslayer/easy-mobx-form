@@ -3,9 +3,21 @@ import isEqual from "lodash/isEqual";
 import { AvailabilityCallback, FormContext, FormStore } from "..";
 import { SubmitCallback, ValidateCallback } from "..";
 
+type Initializer =  object | Promise<object>;
+
+const getInitialValues = (initializer: Initializer): Promise<object> => (
+    new Promise(rs => {
+        if (initializer instanceof Promise) {
+            initializer.then(data => rs(data));
+        } else {
+            rs(initializer);
+        }
+    })
+);
+
 export const Form: React.FC<{
     store: FormStore<any>;
-    initialValues: object | Promise<any>;
+    initialValues: Initializer;
     submit: SubmitCallback<any, any>;
     validate?: ValidateCallback<any>;
     availability?: AvailabilityCallback<any>;
@@ -14,43 +26,44 @@ export const Form: React.FC<{
 }> = (props) => {
     const store = props.store;
 
-    const initialValues = props.initialValues;
-
     if (props.validate) {
         store.setupValidation(props.validate);
-    }
-
-    if (!isEqual(initialValues, store.initialValues)) {
-        store.initialize(
-            props.initialValues,
-            () => {
-                if (props.forceValidation) {
-                    store.validate();
-                }
-
-                if (props.forceAvailability) {
-                    store.handleAvailability();
-                }
-            }
-        );
-    }
-
-    if (props.submit) {
-        store.setupSubmit(props.submit);
-    }
-
-    if (props.availability) {
-        store.setupAvailability(props.availability);
-
-        if (props.forceAvailability) {
-            store.handleAvailability();
-        }
     }
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         store.submit();
     };
+
+    getInitialValues(props.initialValues)
+        .then(initialValues => {
+            if (!isEqual(initialValues, store.initialValues)) {
+                store.initialize(
+                    initialValues,
+                    () => {
+                        if (props.forceValidation) {
+                            store.validate();
+                        }
+
+                        if (props.forceAvailability) {
+                            store.handleAvailability();
+                        }
+                    }
+                );
+            }
+
+            if (props.submit) {
+                store.setupSubmit(props.submit);
+            }
+
+            if (props.availability) {
+                store.setupAvailability(props.availability);
+
+                if (props.forceAvailability) {
+                    store.handleAvailability();
+                }
+            }
+        });
 
     return (
         <FormContext.Provider value={props.store}>
