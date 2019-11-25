@@ -23,7 +23,15 @@ export const Form: React.FC<{
     if (!isEqual(initialValues, store.initialValues)) {
         store.initialize(
             props.initialValues,
-            props.forceValidation ? () => store.validate() : null,
+            () => {
+                if (props.forceValidation) {
+                    store.validate();
+                }
+
+                if (props.forceAvailability) {
+                    store.handleAvailability();
+                }
+            }
         );
     }
 
