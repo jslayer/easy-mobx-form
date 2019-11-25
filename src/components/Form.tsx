@@ -30,6 +30,10 @@ export const Form: React.FC<{
         store.setupValidation(props.validate);
     }
 
+    if (props.availability) {
+        store.setupAvailability(props.availability);
+    }
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         store.submit();
@@ -44,24 +48,20 @@ export const Form: React.FC<{
                         if (props.forceValidation) {
                             store.validate();
                         }
-
-                        if (props.forceAvailability) {
-                            store.handleAvailability();
-                        }
                     }
                 );
+            } else {
+                if (props.forceValidation) {
+                    store.validate();
+                }
+            }
+
+            if (props.forceAvailability) {
+                store.handleAvailability();
             }
 
             if (props.submit) {
                 store.setupSubmit(props.submit);
-            }
-
-            if (props.availability) {
-                store.setupAvailability(props.availability);
-
-                if (props.forceAvailability) {
-                    store.handleAvailability();
-                }
             }
         });
 

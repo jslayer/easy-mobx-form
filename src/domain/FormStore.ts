@@ -34,7 +34,7 @@ export class FormStore<V> {
     public errors = null as PossibleErrors<V>;
 
     @observable
-    public disabledFields = null as false | { [key in keyof V]?: boolean };
+    public disabledFields = null as boolean | { [key in keyof V]?: boolean };
 
     @observable
     valid = false;
@@ -216,7 +216,9 @@ export class FormStore<V> {
         const valid = this.errors ? !this.errors[tName] : true;
         const error = this.errors ? this.errors[tName] : null;
 
-        const disabled = this.disabledFields !== null && (this.disabledFields === false || this.disabledFields[tName]);
+        const disabled = this.disabledFields !== null
+            && this.disabledFields !== true
+            && (this.disabledFields === false || this.disabledFields[tName]);
 
         return {
             pristine,
