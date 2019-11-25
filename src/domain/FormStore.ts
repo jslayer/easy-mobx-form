@@ -216,9 +216,7 @@ export class FormStore<V> {
         const valid = this.errors ? !this.errors[tName] : true;
         const error = this.errors ? this.errors[tName] : null;
 
-        const disabled = this.disabledFields !== null && (
-            this.disabledFields === false || this.disabledFields[tName]
-        );
+        const disabled = this.disabledFields !== null && (this.disabledFields === false || this.disabledFields[tName]);
 
         return {
             pristine,
