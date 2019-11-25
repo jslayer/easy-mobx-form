@@ -47,7 +47,10 @@ export type ValidateCallback<V = object> = (
     initialValues?: V,
 ) => PossibleErrors<V> | Promise<PossibleErrors<V>> | null;
 
-export type AvailabilityCallback<V = object> = (values: V, initialValues?: V) => null | false | { [key in keyof V]?: boolean };
+export type AvailabilityCallback<V = object> = (
+    values: V,
+    initialValues?: V,
+) => null | false | { [key in keyof V]?: boolean };
 
 export type Initializer<V = object> = V | Promise<V>;
 
