@@ -10,6 +10,7 @@ export const Form: React.FC<{
     validate?: ValidateCallback<any>;
     availability?: AvailabilityCallback<any>;
     forceValidation?: boolean;
+    forceAvailability?: boolean;
 }> = (props) => {
     const store = props.store;
 
@@ -32,6 +33,10 @@ export const Form: React.FC<{
 
     if (props.availability) {
         store.setupAvailability(props.availability);
+
+        if (props.forceAvailability) {
+            store.handleAvailability();
+        }
     }
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

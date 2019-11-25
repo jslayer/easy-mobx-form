@@ -26,8 +26,9 @@ parameters:
 - initialValues - object with initial values or Promise which will resolve such object
 - submit ([SubmitCallback][SubmitCallback]) - submit callback
 - validate? ([ValidateCallback][ValidateCallback]) - validate callback
-- availability? ([AvailabilityCallback][AvailabilityCallback]) - availability callback. Returns the list of fields which should be disabled
 - forceValidation? (boolean = false) - force validation right after initializing form
+- availability? ([AvailabilityCallback][AvailabilityCallback]) - availability callback. Returns the list of fields which should be disabled
+- forceAvailability? (boolean = false) - force availability callback
 
 Form validation works along with per-field validation but have higher priority. Form validation could be asynchronous.
 
@@ -97,6 +98,8 @@ parameters: Same as for [FieldText](#fieldtext)
 Basic radio field component.
 
 parameters: Same as for [FieldText](#fieldtext)
+
+- value (number | string) - value of the radio element
 
 ### Field
 
